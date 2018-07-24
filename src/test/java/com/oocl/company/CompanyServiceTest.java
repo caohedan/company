@@ -46,7 +46,7 @@ public class CompanyServiceTest {
         Company company = mock(Company.class);
         when(company.getId()).thenReturn(1);
         // when
-        Company company1 = companyService.getCompanyById((1);
+        Company company1 = companyService.getCompanyById(1);
         // then
         assertThat(company, is(company1));
     }
@@ -59,7 +59,7 @@ public class CompanyServiceTest {
         when(employee.getCompanyId()).thenReturn(1);
         List<Employee> employees = new ArrayList<>();
         employees.add(employee);
-        when(company.getId()).thenReturn((1);
+        when(company.getId()).thenReturn((1));
         when(employeeService.getAllEmployeesByCompanyId()).thenReturn(employees);
         companyService.add(company);
         // when
@@ -88,7 +88,7 @@ public class CompanyServiceTest {
     public void should_delete_the_company_when_deleteCompanyAndEmployeesByCompanyId(){
         // given
         Employee employee = mock(Employee.class);
-        when(employee.getCompanyId()).thenReturn((1);
+        when(employee.getCompanyId()).thenReturn((1));
         when(employee.getId()).thenReturn(0);
         Company company = mock(Company.class);
         when(company.getId()).thenReturn((1));
