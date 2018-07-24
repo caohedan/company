@@ -9,7 +9,7 @@ import java.util.List;
 public class Company {
     private int id;
     private String companyName;
-    private String employeesNumber;
+    private int employeesNumber;
     private List<Employee> employees;
 
 
@@ -21,11 +21,11 @@ public class Company {
         this.companyName = companyName;
     }
 
-    public String getEmployeesNumber() {
+    public int getEmployeesNumber() {
         return employeesNumber;
     }
 
-    public void setEmployeesNumber(String employeesNumber) {
+    public void setEmployeesNumber(int employeesNumber) {
         this.employeesNumber = employeesNumber;
     }
 

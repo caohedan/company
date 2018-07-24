@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 public class CompanyService {
     Map<Integer,Company> companies = new HashMap<>();
@@ -23,27 +25,59 @@ public class CompanyService {
 
         return false;
     }
+
     public List<Company> getAllCompanies(){
-        List<Company> companies = new ArrayList<>();
-        for(Map.Entry<Long, Company> entry: companies.entrySet()) {
+        List<Company> companiesList = new ArrayList<>();
+        for(Map.Entry<Integer, Company> entry: companies.entrySet()) {
             Company company = entry.getValue();
             int id = entry.getKey();
             company.setEmployees(employeeService.getAllEmployeesByCompanyId(id));
             company.setEmployeesNumber(company.getEmployees().size());
-            companies.add(company);
+            companiesList.add(company);
         }
-        return companies;
+        return companiesList;
     }
 
-    public Company getCompanyById(int i) {
+    public Company getCompanyById(int id) {
+        Company company = companies.get(id);
+        List<Employee> employees = employeeService.findAllEmployees()
+                .stream()
+                .filter(u ->u.getCompanyId()==id)
+                .collect(Collectors.toList());
+
+        company.setEmployees(employees);
+        company.setEmployeesNumber(company.getEmployees().size());
+        return company;
     }
 
-    public List<Employee> getEmployeesByCompanyId(int i) {
+    public List<Employee> getEmployeesByCompanyId(int id) {
+        return employeeService.findAllEmployees()
+                .stream()
+                .filter(u ->u.getCompanyId()==id)
+                .collect(Collectors.toList());
     }
 
-    public void updateCompany(int i, Company company1) {
+    public Company updateCompany(int id, Company company) {
+        List<Employee> employees = company.getEmployees();
+
+        companies.put(id, company);
+
+        for(Employee employee: employees){
+            employeeService.add(employee);
+        }
+
+        return company;
     }
 
-    public void deleteCompanyAndEmployeesByCompanyId(int i) {
+    public void deleteCompanyAndEmployeesByCompanyId(int id) {
+        List<Integer> employeeIds = employeeService.findAllEmployees().stream()
+                .filter(u->u.getCompanyId()==id)
+                .map(u->u.getId())
+                .collect(Collectors.toList());
+        for(Integer employeeId: employeeIds){
+            employeeService.delete(employeeId);
+        }
+
+         companies.remove(id);
     }
 }

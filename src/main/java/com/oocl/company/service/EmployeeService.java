@@ -74,7 +74,7 @@ public class EmployeeService {
 
     }
 
-    public List<Employee> getAllEmployeesByCompanyId() {
+    public List<Employee> getAllEmployeesByCompanyId(int id) {
         if(employees.isEmpty()) return null;
         List<Employee> emp = new ArrayList<>();
         for(Map.Entry<Integer, Employee> entry :employees.entrySet()){
