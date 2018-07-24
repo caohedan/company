@@ -73,4 +73,13 @@ public class EmployeeService {
             return subList;
 
     }
+
+    public List<Employee> getAllEmployees() {
+        if(employees.isEmpty()) return null;
+        List<Employee> emp = new ArrayList<>();
+        for(Map.Entry<Integer, Employee> entry :employees.entrySet()){
+            emp.add(entry.getValue());
+        }
+        return emp;
+    }
 }
