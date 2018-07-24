@@ -16,6 +16,7 @@ public class EmployeeServiceTest {
         boolean result = employeeService.add(employee);
         assertThat(result,is(true));
     }
+    @Test
     public  void  should_return_false_when_add_a_exist_emplpyee(){
         employeeService = new EmployeeService();
         Employee employee =  new Employee(1,4,"小霞", 15, "female",3000);
@@ -23,6 +24,7 @@ public class EmployeeServiceTest {
         boolean result = employeeService.add(employee);
         assertThat(result,is(false));
     }
+
     @Test
     public  void should_return_true_when_delete_a_exist_employee(){
         employeeService = new EmployeeService();
