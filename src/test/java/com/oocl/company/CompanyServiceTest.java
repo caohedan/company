@@ -60,7 +60,7 @@ public class CompanyServiceTest {
         List<Employee> employees = new ArrayList<>();
         employees.add(employee);
         when(company.getId()).thenReturn((1);
-        when(employeeService.getAllEmployees()).thenReturn(employees);
+        when(employeeService.getAllEmployeesByCompanyId()).thenReturn(employees);
         companyService.add(company);
         // when
         List<Employee> employees1 = companyService.getEmployeesByCompanyId(1);
