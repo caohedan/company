@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class EmployeeService {
     private Map<Integer,Employee> employees = new HashMap<>() ;
     public EmployeeService() {
-
+        employees = new HashMap<>();
     }
 
     public boolean add(Employee employee){

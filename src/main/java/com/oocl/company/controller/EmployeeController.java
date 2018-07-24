@@ -35,8 +35,18 @@ public class EmployeeController {
         return  employeeService.updateEmployee(employeeId,employee);
 
     }
+    @GetMapping(path="employees/male")
+    public List<Employee> updateEmployee()
+    {
+        return  employeeService.findManEmployees("male");
 
+    }
+    @GetMapping(path="employees/page/{page}/pageSize/{size}")
+    public List<Employee> updateEmployee(@PathVariable int page,@PathVariable int size)
+    {
+        return  employeeService.getEmployeesPagination(page,size);
 
+    }
 
 
 }
