@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @Service
 public class EmployeeService {
@@ -54,10 +55,22 @@ public class EmployeeService {
 
 
     public List<Employee> findManEmployees(String male) {
-        return null;
+     List<Employee>  employeesList = converMapToList(employees);
+        List<Employee>  tempList = new ArrayList<>();
+        employeesList.stream().forEach(employee -> {
+                if(employee.getGender().equals(male))
+                    tempList.add(employee);
+        });
+     return tempList ;
     }
 
-    public List<Employee> getEmployeesPagination(int i, int i1) {
-        return null;
+    public List<Employee> getEmployeesPagination(int page, int subsize) {
+        List<Employee>  employeesList = converMapToList(employees);
+        //分页计算
+            int fromIndex = (page-1) * subsize;
+            int toIndex = (page*subsize > employeesList.size()) ? employeesList.size() : subsize ;
+            List<Employee> subList = employeesList.subList(fromIndex, toIndex);
+            return subList;
+
     }
 }
