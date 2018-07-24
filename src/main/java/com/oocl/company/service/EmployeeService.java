@@ -75,11 +75,12 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployeesByCompanyId(int id) {
-        if(employees.isEmpty()) return null;
-        List<Employee> emp = new ArrayList<>();
+        List<Employee> employeesList = new ArrayList<>();
         for(Map.Entry<Integer, Employee> entry :employees.entrySet()){
-            emp.add(entry.getValue());
+            if(entry.getValue().getCompanyId() == id){
+                employeesList.add(entry.getValue());
+            }
         }
-        return emp;
+        return employeesList;
     }
 }

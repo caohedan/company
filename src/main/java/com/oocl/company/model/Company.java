@@ -6,12 +6,21 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class Company {
+public class Company{
+
+
     private int id;
     private String companyName;
     private int employeesNumber;
     private List<Employee> employees;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -37,11 +46,4 @@ public class Company {
         this.employees = employees;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

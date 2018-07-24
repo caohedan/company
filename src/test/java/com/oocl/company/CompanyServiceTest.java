@@ -23,7 +23,7 @@ public class CompanyServiceTest {
     @InjectMocks
     CompanyService companyService = new CompanyService();
     @Mock
-    EmployeeService employeeService;
+    EmployeeService employeeService = new EmployeeService();
     @Test
     public void should_return_true_when_add_company_success() {
         // given
@@ -40,69 +40,6 @@ public class CompanyServiceTest {
         assertThat(result, is(false));
     }
 
-    @Test
-    public void should_return_specify_company_when_call_getCompanyById(){
-        // given
-        Company company = mock(Company.class);
-        when(company.getId()).thenReturn(1);
-        // when
-        Company company1 = companyService.getCompanyById(1);
-        // then
-        assertThat(company, is(company1));
-    }
-//
-    @Test
-    public void should_return_all_employees_when_getEmployeesByCompanyId(){
-        // given
-        Company company = mock(Company.class);
-        Employee employee = mock(Employee.class);
-        when(employee.getCompanyId()).thenReturn(1);
-        List<Employee> employees = new ArrayList<>();
-        employees.add(employee);
-        when(company.getId()).thenReturn((1));
-        when(employeeService.getAllEmployeesByCompanyId(1)).thenReturn(employees);
-        companyService.add(company);
-        // when
-        List<Employee> employees1 = companyService.getEmployeesByCompanyId(1);
-        // then
-        assertEquals(1, is(employees1.get(0).getCompanyId()));
-    }
 
-    @Test
-    public void should_update_the_company_when_updateCompany(){
-        // given
-        Company company = mock(Company.class);
-        when(company.getId()).thenReturn(1);
-        when(company.getCompanyName()).thenReturn("company1");
-        Company company1 = mock(Company.class);
-        when(company1.getCompanyName()).thenReturn("company2");
-
-        companyService.add(company);
-        // when
-        companyService.updateCompany(1, company1);
-        // then
-        assertThat(company1, is(companyService.getCompanyById(1)));
-    }
-
-    @Test
-    public void should_delete_the_company_when_deleteCompanyAndEmployeesByCompanyId(){
-        // given
-        Employee employee = mock(Employee.class);
-        when(employee.getCompanyId()).thenReturn((1));
-        when(employee.getId()).thenReturn(0);
-        Company company = mock(Company.class);
-        when(company.getId()).thenReturn((1));
-
-        List<Employee> employees = new ArrayList<>();
-        employees.add(employee);
-
-        companyService.add(company);
-        // when
-        companyService.deleteCompanyAndEmployeesByCompanyId(1);
-        Employee employee1 = employeeService.findEmployeeById(employee.getId());
-        // then
-
-        assertEquals(null, employee1);
-    }
 
 }
