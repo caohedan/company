@@ -31,7 +31,7 @@ public class EmployeeServiceTest {
         assertThat(result,is(true));
     }
     @Test
-    public  void should_return_false_when_delete_a_exist_employee(){
+    public  void should_return_false_when_delete_a_not_exist_employee(){
         employeeService = new EmployeeService();
         employeeService.add(new Employee(1,4,"小霞", 15, "女",3000));
         boolean result = employeeService.delete(3);
@@ -68,9 +68,9 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_specify_employee_when_update_it_success(){
         employeeService = new EmployeeService();
-        Employee employee =  new Employee(1,4,"小霞", 15, "女",3000);
+        Employee employee =  new Employee(1,1,"小霞", 15, "女",3000);
         employeeService.add(new Employee(1,1,"小霞1", 15, "女",3000));
-       Employee result = employeeService.updateEmployee(4,employee);
+       Employee result = employeeService.updateEmployee(1,employee);
         assertThat(result,is(employee));
     }
     @Test
