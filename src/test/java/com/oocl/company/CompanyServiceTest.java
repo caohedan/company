@@ -6,12 +6,8 @@ import com.oocl.company.service.CompanyService;
 import com.oocl.company.service.EmployeeService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -20,12 +16,10 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.nullValue;
 
 
 public class CompanyServiceTest {
 
-//    private CompanyService companyService ;
     private List<Employee> employeeList;
 
     @Mock
