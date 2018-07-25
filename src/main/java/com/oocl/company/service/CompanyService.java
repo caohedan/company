@@ -17,25 +17,32 @@ public class CompanyService {
     @Autowired
     private EmployeeService employeeService ;
     public boolean add(Company company) {
+        boolean result =false;
         List<Employee> employees = company.getEmployees();
         if(companies.put(company.getId(),company)== null)
+        {
+            result = true;
+        }
+        if(employees!=null)
         {
             for(Employee employee: employees){
                 employeeService.add(employee);
             }
-            return true;
         }
-
-        return false;
+        return result;
     }
-    @Autowired
     public List<Company> getAllCompanies(){
         List<Company> companiesList = new ArrayList<>();
         for(Map.Entry<Integer, Company> entry: companies.entrySet()) {
             Company company = entry.getValue();
             int id = company.getId();
-            company.setEmployees(employeeService.getAllEmployeesByCompanyId(id));
-            company.setEmployeesNumber(company.getEmployees().size());
+
+            if(company.getEmployees() != null)
+            {
+                company.setEmployees(employeeService.getAllEmployeesByCompanyId(id));
+                company.setEmployeesNumber(company.getEmployees().size());
+            }
+
             companiesList.add(company);
         }
         return companiesList;
@@ -43,9 +50,13 @@ public class CompanyService {
 
     public Company getCompanyById(int id) {
         Company company = companies.get(id);
-        List<Employee> employees = employeeService.getAllEmployeesByCompanyId(id);
-        company.setEmployees(employees);
-        company.setEmployeesNumber(company.getEmployees().size());
+        if(company.getEmployees()!=null)
+        {
+            List<Employee> employees = employeeService.getAllEmployeesByCompanyId(id);
+            company.setEmployees(employees);
+            company.setEmployeesNumber(company.getEmployees().size());
+        }
+
         return company;
     }
 
@@ -69,13 +80,17 @@ public class CompanyService {
     }
 
     public void deleteCompanyAndEmployeesByCompanyId(int id) {
-        List<Integer> employeeIds = employeeService.findAllEmployees().stream()
-                .filter(u->u.getCompanyId()==id)
-                .map(u->u.getId())
-                .collect(Collectors.toList());
-        for(Integer employeeId: employeeIds){
-            employeeService.delete(employeeId);
+        if(employeeService.findAllEmployees()!=null)
+        {
+            List<Integer> employeeIds = employeeService.findAllEmployees().stream()
+                    .filter(u->u.getCompanyId()==id)
+                    .map(u->u.getId())
+                    .collect(Collectors.toList());
+            for(Integer employeeId: employeeIds){
+                employeeService.delete(employeeId);
+            }
         }
+
 
          companies.remove(id);
     }

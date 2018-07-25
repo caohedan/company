@@ -7,15 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
+
 
 @Service
 public class EmployeeService {
-    private Map<Integer,Employee> employees = new HashMap<>() ;
-    public EmployeeService() {
-        employees = new HashMap<>();
-    }
-
+    private Map<Integer,Employee> employees = new HashMap<Integer,Employee>() ;
     public boolean add(Employee employee){
        if(employees.put(employee.getId(),employee)== null)
        {
@@ -26,6 +22,9 @@ public class EmployeeService {
     }
 
     public List<Employee> findAllEmployees() {
+        System.out.println("come=====");
+        if(employees.size()==0)
+            return null;
         return converMapToList(employees);
     }
 
